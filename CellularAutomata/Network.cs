@@ -10,6 +10,7 @@ namespace CellularAutomata
 		private int width { get; set;}
 		private int height { get; set; }
 		private float wallChance { get; set;}
+		private int smoothFactor { get; set; }
 
 		//Default constructor. Creates a 10x10 empty grid.
 		public Network ()
@@ -20,26 +21,27 @@ namespace CellularAutomata
 		}
 
 		//Main Constructor
-		public Network (int width, int height, float chance)
+		public Network (int width, int height, float chance, int smooth)
 		{
 			this.width = width;
 			this.height = height;
 			this.wallChance = chance;
 			this.cave = new int[width, height];
+			this.smoothFactor = smooth;
 
 			SmoothNetwork ();
 		}
 
-		//Generates a random cave network, "#" for walls, " " for space
+		//Generates a random cave network, "1" for walls, "0" for space
 		private void GenerateNetwork()
 		{
-			Random r = new Random ();
+			var r = new Random ();
 
 			for(int x = 0; x < width; x++)
 			{
 				for(int y = 0; y < height; y++)
 				{
-					float noWall = (float)r.NextDouble ();
+					var noWall = (float)r.NextDouble ();
 
 					if(wallChance < noWall)
 					{
@@ -57,8 +59,9 @@ namespace CellularAutomata
 		{
 			GenerateNetwork ();
 
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < smoothFactor; i++)
 				ProcessNetwork();
+			
 		}
 
 		//Processes the network
@@ -141,7 +144,7 @@ namespace CellularAutomata
 			}
 
 			//Top Row
-			else if(xCoord == 0)
+			else if(xCoord == 0 && yCoord != height -1)
 			{
 				for(int x = xCoord; x < xCoord + 2; x++)
 				{
@@ -161,7 +164,7 @@ namespace CellularAutomata
 			}
 
 			//Left Column
-			else if(yCoord == 0)
+			else if(yCoord == 0 && xCoord != width-1)
 			{
 				for(int x = xCoord-1; x < xCoord + 2; x++)
 				{
@@ -201,7 +204,7 @@ namespace CellularAutomata
 			}
 
 			//Bottom Row
-			else if(xCoord == width - 1)
+			else if(xCoord == width - 1 && yCoord != height-1)
 			{
 				for(int x = xCoord - 1; x < xCoord + 1; x++)
 				{
@@ -221,7 +224,7 @@ namespace CellularAutomata
 			}
 
 			//Bottom Right
-			else if(xCoord == width - 1 && yCoord == height-1)
+			else if(xCoord == width - 1 && yCoord == height)
 			{
 				for(int x = xCoord - 1; x < xCoord + 1; x++)
 				{
@@ -241,7 +244,7 @@ namespace CellularAutomata
 			}
 
 			//Right column
-			else if(yCoord == height -1)
+			else if(yCoord == height -1 && (xCoord != 0 && xCoord != width -1))
 			{
 				for(int x = xCoord - 1; x < xCoord + 2; x++)
 				{
@@ -292,7 +295,7 @@ namespace CellularAutomata
 				cave [x, y] = 0;
 			else
 			{
-				Random r = new Random ();
+				var r = new Random ();
 				int chance = r.Next (0, 1);
 
 				if (chance == 0)
@@ -311,7 +314,7 @@ namespace CellularAutomata
 				{
 					if(cave[x,y] == 0)
 					{
-						Console.Write(" ");
+						Console.Write(".");
 					}
 					else if(cave[x,y] == 1)
 					{

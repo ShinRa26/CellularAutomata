@@ -6,8 +6,7 @@ namespace CellularAutomata
 	{
 		public static void Main (string[] args)
 		{
-			var n = new Network (20, 50, 0.50f);
-			//n.GenerateNetwork ();
+			var n = new Network (20, 100, 0.40f, 2);
 			n.PrintNetwork ();
 		}
 	}
