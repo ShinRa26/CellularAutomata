@@ -312,13 +312,13 @@ namespace CellularAutomata
 			{
 				for(int y = 0; y < height; y++)
 				{
-					if(cave[x,y] == 0)
-					{
-						Console.Write(".");
-					}
-					else if(cave[x,y] == 1)
+					if(cave[x,y] == 0) //WALLS
 					{
 						Console.Write("#");
+					}
+					else if(cave[x,y] == 1) //SPACES
+					{
+						Console.Write(".");
 					}
 				}
 				Console.WriteLine ();
