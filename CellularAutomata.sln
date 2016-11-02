@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CellularAutomata", "CellularAutomata\CellularAutomata.csproj", "{77159431-25CC-48C2-B63E-84EBBCDADFEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77159431-25CC-48C2-B63E-84EBBCDADFEC}.Debug|x86.ActiveCfg = Debug|x86
+		{77159431-25CC-48C2-B63E-84EBBCDADFEC}.Debug|x86.Build.0 = Debug|x86
+		{77159431-25CC-48C2-B63E-84EBBCDADFEC}.Release|x86.ActiveCfg = Release|x86
+		{77159431-25CC-48C2-B63E-84EBBCDADFEC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = CellularAutomata\CellularAutomata.csproj
+	EndGlobalSection
+EndGlobal
