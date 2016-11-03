@@ -21,7 +21,7 @@ namespace CellularAutomata
 			this.cave = new int[width, height];
 		}
 
-		//Constructor which uses a seed for the random generation
+		//Constructor which uses a seed for the random generation of the network
 		public Network(int width, int height, bool useSeed, int smooth)
 		{
 			this.width = width;
@@ -90,7 +90,7 @@ namespace CellularAutomata
 			}
 		}
 
-		//SMooths the network out by iterating over it several times
+		//Smooths the network out by iterating over it several times
 		private void SmoothNetwork()
 		{
 			GenerateNetwork ();
