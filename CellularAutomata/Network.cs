@@ -186,7 +186,7 @@ namespace CellularAutomata
 				{
 					for(int y = yCoord-1; y < yCoord + 2; y++)
 					{
-						if (xCoord == 0 && y == yCoord)
+						if (x == xCoord && y == yCoord)
 							continue;
 						else
 						{
@@ -348,11 +348,11 @@ namespace CellularAutomata
 			{
 				for(int y = 0; y < height; y++)
 				{
-					if(cave[x,y] == 0) //WALLS
+					if(cave[x,y] == 0) //WALLS - IM LAZY AND CAN'T BE ARSED CHANGING THE VALUES AROUND
 					{
 						Console.Write("#");
 					}
-					else if(cave[x,y] == 1) //SPACES
+					else if(cave[x,y] == 1) //SPACES - IM LAZY AND CAN'T BE ARSED CHANGING THE VALUES AROUND
 					{
 						Console.Write(".");
 					}
