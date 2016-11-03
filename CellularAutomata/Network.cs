@@ -11,6 +11,7 @@ namespace CellularAutomata
 		private int height { get; set; }
 		private float wallChance { get; set;}
 		private int smoothFactor { get; set; }
+		private bool useSeed { get; set; }
 
 		//Default constructor. Creates a 10x10 empty grid.
 		public Network ()
@@ -20,7 +21,20 @@ namespace CellularAutomata
 			this.cave = new int[width, height];
 		}
 
-		//Main Constructor
+		//Constructor which uses a seed for the random generation
+		public Network(int width, int height, bool useSeed, int smooth)
+		{
+			this.width = width;
+			this.height = height;
+			this.useSeed = useSeed;
+			this.wallChance = 0.0f;
+			this.smoothFactor = smooth;
+			this.cave = new int[width, height];
+
+			SmoothNetwork ();
+		}
+
+		//Constructor for user-defined random chance in generating network
 		public Network (int width, int height, float chance, int smooth)
 		{
 			this.width = width;
@@ -28,6 +42,7 @@ namespace CellularAutomata
 			this.wallChance = chance;
 			this.cave = new int[width, height];
 			this.smoothFactor = smooth;
+			this.useSeed = false;
 
 			SmoothNetwork ();
 		}
@@ -35,26 +50,47 @@ namespace CellularAutomata
 		//Generates a random cave network, "1" for walls, "0" for space
 		private void GenerateNetwork()
 		{
-			var r = new Random ();
-
-			for(int x = 0; x < width; x++)
+			//If we're using seed for our random value
+			if (useSeed) 
 			{
-				for(int y = 0; y < height; y++)
-				{
-					var noWall = (float)r.NextDouble ();
+				var r = new Random(Guid.NewGuid().GetHashCode());
 
-					if(wallChance < noWall)
+				for(int x = 0; x < width; x++)
+				{
+					for(int y = 0; y < height; y++)
 					{
-						cave [x, y] = 0;
+						var noWall = (float)r.NextDouble();
+
+						cave[x,y] = ((float)r.NextDouble() < noWall) ? 0:1;
 					}
-					else if(wallChance > noWall)
+				}
+			} 
+
+			//User-defined chance
+			else 
+			{
+				var r = new Random ();
+
+				for (int x = 0; x < width; x++) 
+				{
+					for (int y = 0; y < height; y++) 
 					{
-						cave [x, y] = 1;
+						var noWall = (float)r.NextDouble ();
+
+						if (wallChance < noWall) 
+						{
+							cave [x, y] = 0;
+						} 
+						else if (wallChance > noWall) 
+						{
+							cave [x, y] = 1;
+						}
 					}
 				}
 			}
 		}
 
+		//SMooths the network out by iterating over it several times
 		private void SmoothNetwork()
 		{
 			GenerateNetwork ();
@@ -286,7 +322,7 @@ namespace CellularAutomata
 			ConvertCell (wallCount, noWallCount, xCoord, yCoord);
 		}
 
-		//Converts a cell to either a wall(1) or space(0)
+		//Converts a cell to either a wall(0) or space(1)
 		private void ConvertCell(int wCount, int nWCount, int x, int y)
 		{
 			if (wCount >= 4)
