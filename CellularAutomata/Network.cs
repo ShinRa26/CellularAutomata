@@ -335,7 +335,7 @@ namespace CellularAutomata
 				int chance = r.Next (0, 1);
 
 				if (chance == 0)
-					cave [x, y] = 0;
+					cave [x, y] = 0; // Always going to be true...
 				else
 					cave [x, y] = 1;
 			}
