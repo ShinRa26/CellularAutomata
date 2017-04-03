@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-
+// Class for creating the network
 namespace CellularAutomata
 {
 	public class Network
